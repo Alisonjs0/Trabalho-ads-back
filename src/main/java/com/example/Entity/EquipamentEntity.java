@@ -1,15 +1,16 @@
 package com.example.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "tipoequipamento")
 public class EquipamentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_equipamento")
     private long id;
+
+    @Column(name = "nome", length = 100, nullable = false)
     private String name;
 
     public EquipamentEntity(long id, String name) {
@@ -36,4 +37,5 @@ public class EquipamentEntity {
     public void setName(String name) {
         this.name = name;
     }
+
 }

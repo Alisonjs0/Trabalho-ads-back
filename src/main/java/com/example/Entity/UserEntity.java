@@ -10,29 +10,28 @@ public class UserEntity {
     @Column(name = "id_usuario")
     private Long id;
 
-    @Column(name = "nome")
+    @Column(name = "nome", length = 100 , nullable = false)
     private String nome;
 
+    @Column(name = "cpf", length = 11, unique = true, nullable = false, columnDefinition = "CHAR(11)")
     private String cpf;
 
-    @Column(name = "position")
+    @Column(name = "cargo", length = 100, nullable = false)
     private String cargo;
 
+    @Column(name = "email", length = 150, unique = true, nullable = false)
     private String email;
 
     private String senha;
 
-    private String setor;
-
     public UserEntity() {}
 
-    public UserEntity(String nome, String cpf, String cargo, String email, String senha, String setor) {
+    public UserEntity(String nome, String cpf, String cargo, String email, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.cargo = cargo;
         this.email = email;
         this.senha = senha;
-        this.setor = setor;
     }
 
     public Long getId() {
@@ -83,11 +82,11 @@ public class UserEntity {
         this.senha = senha;
     }
 
-    public String getSetor() {
-        return setor;
-    }
-
-    public void setSetor(String setor) {
-        this.setor = setor;
-    }
+//    public String getSetor() {
+//        return setor;
+//    }
+//
+//    public void setSetor(String setor) {
+//        this.setor = setor;
+//    }
 }

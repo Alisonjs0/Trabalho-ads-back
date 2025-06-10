@@ -3,27 +3,29 @@ package com.example.Entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "unidade")
 public class UnitEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_unidade")
     private long id;
 
+    @Column(name = "nome")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "responsible_id")
-    private UserEntity userId;
+//    @ManyToOne
+//    @JoinColumn(name = "responsible_id")
+//    private UserEntity userId;
 
-    private int extinguisherAmount;
+//    private int extinguisherAmount;
 
     public UnitEntity() {
     }
 
-    public UnitEntity(long id, String name, UserEntity userId, int extinguisherAmount) {
+    public UnitEntity(long id, String name) {
         this.id = id;
         this.name = name;
-        this.userId = userId;
-        this.extinguisherAmount = extinguisherAmount;
+//        this.extinguisherAmount = extinguisherAmount;
     }
 
     public long getId() {
@@ -34,21 +36,21 @@ public class UnitEntity {
         this.id = id;
     }
 
-    public int getExtinguisherAmount() {
-        return extinguisherAmount;
-    }
+//    public int getExtinguisherAmount() {
+//        return extinguisherAmount;
+//    }
+//
+//    public void setExtinguisherAmount(int extinguisherAmount) {
+//        this.extinguisherAmount = extinguisherAmount;
+//    }
 
-    public void setExtinguisherAmount(int extinguisherAmount) {
-        this.extinguisherAmount = extinguisherAmount;
-    }
-
-    public UserEntity getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UserEntity userId) {
-        this.userId = userId;
-    }
+//    public UserEntity getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(UserEntity userId) {
+//        this.userId = userId;
+//    }
 
     public String getName() {
         return name;

@@ -56,14 +56,14 @@ public class ExtinguisherController {
         if (existingExtinguisherOptional.isPresent()) {
             ExtinguisherEntity existingExtinguisher = existingExtinguisherOptional.get();
 
-            updateExtinguisher.setName(updateExtinguisher.getName());
+//            updateExtinguisher.setName(updateExtinguisher.getName());
             updateExtinguisher.setValidate(updateExtinguisher.getValidate());
             updateExtinguisher.setAgentType(updateExtinguisher.getAgentType());
             updateExtinguisher.setFireClass(updateExtinguisher.getFireClass());
             updateExtinguisher.setCapacity(updateExtinguisher.getCapacity());
             updateExtinguisher.setManufacturingDate(updateExtinguisher.getManufacturingDate());
 
-            updateExtinguisher.setMaturityDate(updateExtinguisher.getMaturityDate());
+//            updateExtinguisher.setMaturityDate(updateExtinguisher.getMaturityDate());
 //            updateExtinguisher.setUnitId(updateExtinguisher.getUnitId());
 
 

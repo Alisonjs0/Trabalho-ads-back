@@ -54,12 +54,8 @@ public class EquipamentController {
 
         if (existingEquipamentOptional.isPresent()) {
             EquipamentEntity existingEquipament = existingEquipamentOptional.get();
-
             existingEquipament.setName(updateEquipament.getName());
-
-
             equipamentRepository.save(existingEquipament);
-
             return ResponseEntity.ok(existingEquipament); // 200 OK com o usuário atualizado
         } else {
             return ResponseEntity.notFound().build(); // 404 Not Found se o ID não existir

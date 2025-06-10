@@ -1,28 +1,46 @@
 package com.example.Entity;
 
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity
+@Table(name = "extintor")
 public class ExtinguisherEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_extintor")
     private long id;
-    private String name;
+
+//    @Column(name = "nome", nullable = false, length = 100)
+//    private String name;
+
+    @Column(name = "validade", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date validate;
+
+    @Column(name = "tipo_agente", length = 50, nullable = false)
     private String agentType;
+
+    @Column(name = "classe_incendio", length = 3, nullable = false)
     private String fireClass;
-    private String capacity;
-    private String manufacturingDate;
-    private String maturityDate;
+
+    @Column(name = "capacidade", nullable = false)
+    private double capacity;
+
+    @Column(name = "data_fabricacao", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date manufacturingDate;
+
+//    @Column(name = "vencimento", nullable = false)
+//    @Temporal(TemporalType.DATE)
+//    private Date maturityDate;
 
     @ManyToOne
-    @JoinColumn(name = "unit_id")
+    @JoinColumn(name = "unidade_id")
     private UnitEntity unitId;
 
     @ManyToOne
-    @JoinColumn(name = "equipment")
+    @JoinColumn(name = "tipoequipamento_id", nullable = false)
     private EquipamentEntity equipmentId;
 
 
@@ -30,20 +48,20 @@ public class ExtinguisherEntity {
 
     }
 
-    public ExtinguisherEntity(long id, String name, Date validate, String agentType, String fireClass,
-                              String capacity, String manufacturingDate, String maturityDate, EquipamentEntity equipmentId, UnitEntity unitId) {
+    // Construtor corrigido para aceitar Date para manufacturingDate
+    public ExtinguisherEntity(long id, Date validate, String agentType, String fireClass,
+                              double capacity, Date manufacturingDate, EquipamentEntity equipmentId, UnitEntity unitId) {
         this.id = id;
-        this.name = name;
         this.validate = validate;
         this.agentType = agentType;
         this.fireClass = fireClass;
         this.capacity = capacity;
         this.manufacturingDate = manufacturingDate;
-        this.maturityDate = maturityDate;
         this.unitId = unitId;
         this.equipmentId = equipmentId;
     }
 
+    // Getters e Setters (manufacturingDate agora retorna e aceita Date)
     public long getId() {
         return id;
     }
@@ -52,13 +70,13 @@ public class ExtinguisherEntity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
     public Date getValidate() {
         return validate;
@@ -84,29 +102,29 @@ public class ExtinguisherEntity {
         this.fireClass = fireClass;
     }
 
-    public String getCapacity() {
+    public double getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(String capacity) {
+    public void setCapacity(double capacity) {
         this.capacity = capacity;
     }
 
-    public String getManufacturingDate() {
+    public Date getManufacturingDate() { // Retorna Date
         return manufacturingDate;
     }
 
-    public void setManufacturingDate(String manufacturingDate) {
+    public void setManufacturingDate(Date manufacturingDate) { // Aceita Date
         this.manufacturingDate = manufacturingDate;
     }
 
-    public String getMaturityDate() {
-        return maturityDate;
-    }
-
-    public void setMaturityDate(String maturityDate) {
-        this.maturityDate = maturityDate;
-    }
+//    public Date getMaturityDate() {
+//        return maturityDate;
+//    }
+//
+//    public void setMaturityDate(Date maturityDate) {
+//        this.maturityDate = maturityDate;
+//    }
 
     public UnitEntity getUnitId() {
         return unitId;

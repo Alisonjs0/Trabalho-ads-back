@@ -1,49 +1,72 @@
 package com.example.Entity;
 
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity
+@Table(name = "inspecoes")
 public class InspectionEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_inspecoes")
     private long id;
 
-    private Date date;
-    private double weigth;
-
-    @Transient
-    private Long authorId;
+    @Column(name = "data_validade", nullable = false)
+    private boolean inspectionDate;
 
     @ManyToOne
-    @JoinColumn(name = "author_id", referencedColumnName = "id_usuario")
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id_usuario")
     private UserEntity inspectionAuthor;
+
+    @Transient
+    private Long authorIdInput;
+
+    @ManyToOne
+    @JoinColumn(name = "extintor_id", referencedColumnName = "id_extintor")
+    private ExtinguisherEntity extinguisher;
+
+    @Column(name = "manometro", nullable = false)
+    private boolean manometro;
+
+    @Column(name = "lacre", nullable = false)
+    private boolean seal;
+
+    @Column(name = "rotulo", nullable = false)
+    private boolean rotulo;
+
+    @Column(name = "danos", nullable = false)
+    private boolean damages;
+
+    @Column(name = "obstrucoes", nullable = false)
+    private boolean obstructions;
+
+    @Column(name = "sinalizacao", nullable = false)
+    private boolean sinalizacao;
+
+    @Column(name = "suporte_fixacao", nullable = false)
+    private boolean suporteFixacao;
+
 
     public InspectionEntity() {
     }
 
-    public InspectionEntity(Date date, double weigth, UserEntity inspectionAuthor,
-                            boolean manometro, boolean seal, boolean stamp, boolean damages,
-                            boolean obstructions, boolean parts) {
-        setId(id);
-        this.date = date;
-        this.weigth = weigth;
+    // Construtor atualizado com os novos campos e sem setId(id)
+    public InspectionEntity(boolean inspectionDate, UserEntity inspectionAuthor, ExtinguisherEntity extinguisher,
+                            boolean manometro, boolean seal, boolean rotulo, boolean damages,
+                            boolean obstructions, boolean sinalizacao, boolean suporteFixacao) {
+        this.inspectionDate = inspectionDate;
         this.inspectionAuthor = inspectionAuthor;
+        this.extinguisher = extinguisher;
         this.manometro = manometro;
         this.seal = seal;
-        this.stamp = stamp;
+        this.rotulo = rotulo;
         this.damages = damages;
         this.obstructions = obstructions;
-        this.parts = parts;
+        this.sinalizacao = sinalizacao;
+        this.suporteFixacao = suporteFixacao;
     }
 
-    private boolean manometro;
-    private boolean seal;
-    private boolean stamp;
-    private boolean damages;
-    private boolean obstructions;
-    private boolean parts;
 
 
     public long getId() {
@@ -54,28 +77,12 @@ public class InspectionEntity {
         this.id = id;
     }
 
-    public Long getAuthorId() {
-        return authorId;
+    public boolean getInspectionDate() {
+        return inspectionDate;
     }
 
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public double getWeigth() {
-        return weigth;
-    }
-
-    public void setWeigth(double weigth) {
-        this.weigth = weigth;
+    public void setInspectionDate(boolean inspectionDate) {
+        this.inspectionDate = inspectionDate;
     }
 
     public UserEntity getInspectionAuthor() {
@@ -84,6 +91,22 @@ public class InspectionEntity {
 
     public void setInspectionAuthor(UserEntity inspectionAuthor) {
         this.inspectionAuthor = inspectionAuthor;
+    }
+
+    public Long getAuthorIdInput() {
+        return authorIdInput;
+    }
+
+    public void setAuthorIdInput(Long authorIdInput) {
+        this.authorIdInput = authorIdInput;
+    }
+
+    public ExtinguisherEntity getExtinguisher() {
+        return extinguisher;
+    }
+
+    public void setExtinguisher(ExtinguisherEntity extinguisher) {
+        this.extinguisher = extinguisher;
     }
 
     public boolean isManometro() {
@@ -102,12 +125,12 @@ public class InspectionEntity {
         this.seal = seal;
     }
 
-    public boolean isStamp() {
-        return stamp;
+    public boolean isRotulo() {
+        return rotulo;
     }
 
-    public void setStamp(boolean stamp) {
-        this.stamp = stamp;
+    public void setRotulo(boolean rotulo) {
+        this.rotulo = rotulo;
     }
 
     public boolean isDamages() {
@@ -126,13 +149,19 @@ public class InspectionEntity {
         this.obstructions = obstructions;
     }
 
-    public boolean isParts() {
-        return parts;
+    public boolean isSinalizacao() {
+        return sinalizacao;
     }
 
-    public void setParts(boolean parts) {
-        this.parts = parts;
+    public void setSinalizacao(boolean sinalizacao) {
+        this.sinalizacao = sinalizacao;
     }
 
+    public boolean isSuporteFixacao() {
+        return suporteFixacao;
+    }
 
+    public void setSuporteFixacao(boolean suporteFixacao) {
+        this.suporteFixacao = suporteFixacao;
+    }
 }

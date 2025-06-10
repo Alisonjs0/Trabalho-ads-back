@@ -53,15 +53,16 @@ public class InspectionController {
         if (existingInspectionOptional.isPresent()) {
             InspectionEntity existingInspection = existingInspectionOptional.get();
 
-            existingInspection.setDate(updateInspection.getDate());
-            existingInspection.setWeigth(updateInspection.getWeigth());
+            existingInspection.setInspectionDate(updateInspection.getInspectionDate());
             existingInspection.setInspectionAuthor(updateInspection.getInspectionAuthor());
+            existingInspection.setExtinguisher(updateInspection.getExtinguisher());
             existingInspection.setManometro(updateInspection.isManometro());
             existingInspection.setSeal(updateInspection.isSeal());
-            existingInspection.setStamp(updateInspection.isStamp());
+            existingInspection.setRotulo(updateInspection.isRotulo());
             existingInspection.setDamages(updateInspection.isDamages());
             existingInspection.setObstructions(updateInspection.isObstructions());
-            existingInspection.setParts(updateInspection.isParts());
+            existingInspection.setSinalizacao(updateInspection.isSinalizacao());
+            existingInspection.setSuporteFixacao(updateInspection.isSuporteFixacao());
 
             inspectionRepository.save(existingInspection);
 

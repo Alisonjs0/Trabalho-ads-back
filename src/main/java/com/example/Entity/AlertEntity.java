@@ -1,7 +1,7 @@
 package com.example.Entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -13,35 +13,42 @@ public class AlertEntity {
     @Column(name = "id_alerta") // Nome da PK no banco
     private Long id;
 
-    @Column(name = "tipo_alerta", nullable = false)
-    @NotBlank
+    @Column(name = "tipo_alerta", nullable = false, length = 150)
     private String alertType;
 
-    @Column(name = "descricao", nullable = false)
+    @Column(name = "descricao", nullable = false , length = 250)
     private String description;
 
     @Column(name = "data_envio", nullable = false)
     private LocalDateTime sendDate;
 
+    @Column(name = "mensagem", nullable = false)
+    private String message;
+
     @ManyToOne
-    @JoinColumn(name = "author_id", referencedColumnName = "id_usuario")
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id_usuario")
     private UserEntity alertAuthor;
 
     public AlertEntity() {
 
     }
 
-    public AlertEntity(String alertType, String description, UserEntity alertAuthor) {
+    public AlertEntity(String alertType, String description, UserEntity alertAuthor, String message) {
         this.alertType = alertType;
         this.description = description;
         this.alertAuthor = alertAuthor;
-    }
-
-    public AlertEntity(String alertType, String description) {
-        this.alertType = alertType;
-        this.description = description;
+        this.message = message;
         this.sendDate = LocalDateTime.now();
     }
+
+    public AlertEntity(String alertType, String description, String message) {
+        this.alertType = alertType;
+        this.description = description;
+        this.message = message;
+        this.sendDate = LocalDateTime.now();
+    }
+
+
 
     public String getAlertType() {
         return alertType;
@@ -81,5 +88,13 @@ public class AlertEntity {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

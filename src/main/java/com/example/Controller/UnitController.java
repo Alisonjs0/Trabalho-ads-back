@@ -54,8 +54,8 @@ public class UnitController {
             UnitEntity existingUnit = existingUnitOptional.get();
 
             existingUnit.setName(updateUnit.getName());
-            existingUnit.setUserId(updateUnit.getUserId());
-            existingUnit.setExtinguisherAmount(updateUnit.getExtinguisherAmount());
+//            existingUnit.setUserId(updateUnit.getUserId());
+//            existingUnit.setExtinguisherAmount(updateUnit.getExtinguisherAmount());
 
             unitRepository.save(existingUnit);
 
