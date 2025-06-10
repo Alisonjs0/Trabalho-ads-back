@@ -37,6 +37,6 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Senha incorreta.");
         }
 
-        return ResponseEntity.ok(new LoginResponse("Login realizado com sucesso", usuario.getNome()));
+        return ResponseEntity.ok(new LoginResponse(usuario.getNome(), usuario.getCpf(), usuario.getCargo(), usuario.getEmail()));
     }
 }

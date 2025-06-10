@@ -1,6 +1,5 @@
 package com.example.Controller;
 
-import com.example.Entity.AlertEntity;
 import com.example.Entity.EquipamentEntity;
 import com.example.Repository.EquipamentRepository;
 import org.springframework.http.ResponseEntity;
