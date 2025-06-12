@@ -24,7 +24,7 @@ public class ExtinguisherEntity {
     @Column(name = "classe_incendio", length = 3, nullable = false)
     private String fireClass;
 
-    @Column(name = "capacidade", nullable = false)
+    @Column(name = "capacidade")
     private double capacity;
 
     @Column(name = "data_fabricacao", nullable = false)
@@ -40,7 +40,7 @@ public class ExtinguisherEntity {
     private UnitEntity unitId;
 
     @ManyToOne
-    @JoinColumn(name = "tipoequipamento_id", nullable = false)
+    @JoinColumn(name = "tipoequipamento_id")
     private EquipamentEntity equipmentId;
 
 
