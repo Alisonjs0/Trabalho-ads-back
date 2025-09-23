@@ -26,6 +26,7 @@ public class JwtService {
 
     public String generateToken(UserEntity userDetails) {
         Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("id", userDetails.getId());
         extraClaims.put("name", userDetails.getNome());
         extraClaims.put("roles", userDetails.getRoles());
         return Jwts.builder()
@@ -70,6 +71,7 @@ public class JwtService {
 
     public String generateInfiniteToken(UserEntity userDetails) {
         Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("id", userDetails.getId());
         extraClaims.put("name", userDetails.getNome());
         extraClaims.put("roles", userDetails.getRoles());
         // Data de expiração: 31/12/2099

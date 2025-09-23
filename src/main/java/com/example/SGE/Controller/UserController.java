@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +40,7 @@ public class UserController {
         newUser.setSenha(data.senha());
         newUser.setRoles(data.roles());
         newUser.setCargo(data.cargo());
-        newUser.setCreatedDate(data.createdDate());
+        newUser.setCreatedDate(LocalDateTime.now());
 
         UserEntity saveUser = userService.userRegister(newUser);
         UserResponseDTO responseDTO = new UserResponseDTO(saveUser);

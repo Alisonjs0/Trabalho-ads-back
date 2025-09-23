@@ -35,8 +35,8 @@ public class AuthController {
             var userDetails = (UserEntity) authentication.getPrincipal();
 
             String token = jwtService.generateToken(userDetails);
-
-            return ResponseEntity.ok(new LoginResponse(token));
+            Long id = userDetails.getId();
+            return ResponseEntity.ok(new LoginResponse(token, id));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Credentials");
         }

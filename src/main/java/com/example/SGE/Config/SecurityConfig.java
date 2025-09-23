@@ -51,6 +51,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers("/token-infinito/**").permitAll()
+                        // Apenas ADMIN pode deletar usuários
                         // Outros endpoints precisam de autenticação
                         .anyRequest().authenticated()
                 )
