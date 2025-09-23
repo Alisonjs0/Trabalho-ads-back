@@ -1,7 +1,7 @@
-package com.example.Controller;
+package com.example.SGE.Controller;
 
-import com.example.Entity.ExtinguisherEntity;
-import com.example.Repository.ExtinguisherRepository;
+import com.example.SGE.Entity.ExtinguisherEntity;
+import com.example.SGE.Repository.ExtinguisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

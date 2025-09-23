@@ -1,7 +1,8 @@
-package com.example.Entity;
+package com.example.SGE.Entity;
 
 import jakarta.persistence.*;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "inspecoes")
@@ -10,17 +11,14 @@ public class InspectionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_inspecoes")
-    private long id;
+    private Long id;
 
-    @Column(name = "data_validade", nullable = false)
-    private boolean inspectionDate;
+    @Column(name = "data_inspecao", nullable = false)
+    private LocalDateTime inspectionDate;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "id_usuario")
     private UserEntity inspectionAuthor;
-
-    @Transient
-    private Long authorIdInput;
 
     @ManyToOne
     @JoinColumn(name = "extintor_id", referencedColumnName = "id_extintor")
@@ -47,14 +45,20 @@ public class InspectionEntity {
     @Column(name = "suporte_fixacao", nullable = false)
     private boolean suporteFixacao;
 
+    @Column(name = "observacoes")
+    private String observations;
+
+    @Column(name = "proxima_inspecao")
+    private LocalDateTime nextInspectionDate;
 
     public InspectionEntity() {
     }
 
     // Construtor atualizado com os novos campos e sem setId(id)
-    public InspectionEntity(boolean inspectionDate, UserEntity inspectionAuthor, ExtinguisherEntity extinguisher,
+    public InspectionEntity(LocalDateTime inspectionDate, UserEntity inspectionAuthor, ExtinguisherEntity extinguisher,
                             boolean manometro, boolean seal, boolean rotulo, boolean damages,
-                            boolean obstructions, boolean sinalizacao, boolean suporteFixacao) {
+                            boolean obstructions, boolean sinalizacao, boolean suporteFixacao, String observations,
+                            LocalDateTime nextInspectionDate) {
         this.inspectionDate = inspectionDate;
         this.inspectionAuthor = inspectionAuthor;
         this.extinguisher = extinguisher;
@@ -65,23 +69,27 @@ public class InspectionEntity {
         this.obstructions = obstructions;
         this.sinalizacao = sinalizacao;
         this.suporteFixacao = suporteFixacao;
+        this.observations = observations;
+        this.nextInspectionDate = nextInspectionDate;
     }
 
 
 
-    public long getId() {
+
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public boolean getInspectionDate() {
+    public LocalDateTime getInspectionDate() {
         return inspectionDate;
     }
 
-    public void setInspectionDate(boolean inspectionDate) {
+    public void setInspectionDate(LocalDateTime inspectionDate) {
         this.inspectionDate = inspectionDate;
     }
 
@@ -91,14 +99,6 @@ public class InspectionEntity {
 
     public void setInspectionAuthor(UserEntity inspectionAuthor) {
         this.inspectionAuthor = inspectionAuthor;
-    }
-
-    public Long getAuthorIdInput() {
-        return authorIdInput;
-    }
-
-    public void setAuthorIdInput(Long authorIdInput) {
-        this.authorIdInput = authorIdInput;
     }
 
     public ExtinguisherEntity getExtinguisher() {
@@ -163,5 +163,22 @@ public class InspectionEntity {
 
     public void setSuporteFixacao(boolean suporteFixacao) {
         this.suporteFixacao = suporteFixacao;
+    }
+
+
+    public String getObservations() {
+        return observations;
+    }
+
+    public void setObservations(String observations) {
+        this.observations = observations;
+    }
+
+    public LocalDateTime getNextInspectionDate() {
+        return nextInspectionDate;
+    }
+
+    public void setNextInspectionDate(LocalDateTime nextInspectionDate) {
+        this.nextInspectionDate = nextInspectionDate;
     }
 }

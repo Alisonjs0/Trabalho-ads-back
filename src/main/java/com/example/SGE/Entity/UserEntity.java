@@ -1,37 +1,46 @@
-package com.example.Entity;
+package com.example.SGE.Entity;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 
 @Entity
 @Table(name = "usuario")
-public class UserEntity {
+public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private Long id;
-
     @Column(name = "nome", length = 100 , nullable = false)
     private String nome;
-
     @Column(name = "cpf", length = 11, unique = true, nullable = false, columnDefinition = "CHAR(11)")
     private String cpf;
-
     @Column(name = "cargo", length = 100, nullable = false)
     private String cargo;
-
     @Column(name = "email", length = 150, unique = true, nullable = false)
     private String email;
 
     private String senha;
 
+    private String roles;
+
+    private LocalDateTime createdDate;
+
     public UserEntity() {}
 
-    public UserEntity(String nome, String cpf, String cargo, String email, String senha) {
+    public UserEntity(String nome, String cpf, String cargo, String email, String senha, String roles) {
         this.nome = nome;
         this.cpf = cpf;
         this.cargo = cargo;
         this.email = email;
         this.senha = senha;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -82,7 +91,58 @@ public class UserEntity {
         this.senha = senha;
     }
 
-//    public String getSetor() {
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority(roles));
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return cpf;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    //    public String getSetor() {
 //        return setor;
 //    }
 //

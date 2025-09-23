@@ -1,6 +1,6 @@
-package com.example.Repository;
+package com.example.SGE.Repository;
 
-import com.example.Entity.ExtinguisherEntity;
+import com.example.SGE.Entity.ExtinguisherEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.example.Entity;
+package com.example.SGE.Entity;
 
 import jakarta.persistence.*;
 
@@ -13,11 +13,11 @@ public class UnitEntity {
     @Column(name = "nome")
     private String name;
 
-//    @ManyToOne
-//    @JoinColumn(name = "responsible_id")
-//    private UserEntity userId;
+    @ManyToOne
+    @JoinColumn(name = "responsible_id")
+   private UserEntity userId;
 
-//    private int extinguisherAmount;
+   private int extinguisherAmount;
 
     public UnitEntity() {
     }

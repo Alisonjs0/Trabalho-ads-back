@@ -1,8 +1,8 @@
-package com.example.Controller;
+package com.example.SGE.Controller;
 
 
-import com.example.Entity.AlertEntity;
-import com.example.Repository.AlertRepository;
+import com.example.SGE.Entity.AlertEntity;
+import com.example.SGE.Repository.AlertRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

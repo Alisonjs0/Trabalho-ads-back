@@ -1,7 +1,7 @@
-package com.example.Controller;
+package com.example.SGE.Controller;
 
-import com.example.Entity.UnitEntity;
-import com.example.Repository.UnitRepository;
+import com.example.SGE.Entity.UnitEntity;
+import com.example.SGE.Repository.UnitRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

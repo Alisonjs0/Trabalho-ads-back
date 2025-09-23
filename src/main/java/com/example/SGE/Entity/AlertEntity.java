@@ -1,7 +1,6 @@
-package com.example.Entity;
+package com.example.SGE.Entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
