@@ -51,6 +51,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers("/token-infinito/**").permitAll()
+                        .requestMatchers("/health/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/health").permitAll()
                         // Apenas ADMIN pode deletar usuários
                         // Outros endpoints precisam de autenticação
                         .anyRequest().authenticated()
@@ -64,9 +66,15 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3000")); // Ajuste conforme necessário
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With"));
+        // Permitir origens para desenvolvimento e testes
+        configuration.setAllowedOrigins(List.of(
+            "http://localhost:3000",   // Frontend Next.js
+            "http://127.0.0.1:3000",  // Frontend alternativo
+            "http://localhost:8081",  // Para testes diretos
+            "http://127.0.0.1:8081"   // Para testes diretos alternativo
+        ));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        configuration.setAllowedHeaders(List.of("*")); // Permitir todos os headers
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
