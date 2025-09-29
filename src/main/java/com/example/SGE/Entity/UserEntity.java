@@ -103,7 +103,7 @@ public class UserEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return cpf;
+        return email;
     }
 
     @Override

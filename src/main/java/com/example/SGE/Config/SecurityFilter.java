@@ -31,7 +31,20 @@ public class SecurityFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-        // Recupera o token do header Authorization
+        // Lista de endpoints públicos que não precisam de autenticação
+        String requestPath = request.getRequestURI();
+        String method = request.getMethod();
+        
+        // Endpoints públicos
+        if ((requestPath.equals("/auth/login") && method.equals("POST")) ||
+            (requestPath.equals("/users") && method.equals("POST")) ||
+            requestPath.startsWith("/health") ||
+            requestPath.startsWith("/token-infinito")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        // Recupera o token do header Authorization para endpoints protegidos
         String token = this.recoverToken(request);
 
         if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {

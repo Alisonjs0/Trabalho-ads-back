@@ -30,7 +30,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         try {
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.cpf(), request.password())
+                    new UsernamePasswordAuthenticationToken(request.email(), request.password())
             );
             var userDetails = (UserEntity) authentication.getPrincipal();
 

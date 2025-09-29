@@ -1,5 +1,5 @@
 package com.example.SGE.DTO;
 
-public record LoginRequest(String cpf, String password) {
+public record LoginRequest(String email, String password) {
 
 }
