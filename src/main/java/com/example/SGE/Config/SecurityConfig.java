@@ -27,13 +27,11 @@ public class SecurityConfig {
     @Autowired
     private SecurityFilter securityFilter;
 
-    // BCrypt encoder para senhas
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // Expondo AuthenticationManager para uso em AuthController
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
@@ -47,34 +45,31 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        // Endpoints públicos
+                        // Endpoints públicos (devem vir PRIMEIRO - ordem importa!)
                         .requestMatchers("/health/**").permitAll()
                         .requestMatchers("/health").permitAll()
                         .requestMatchers("/token-infinito/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        // Permitir criação de usuário sem autenticação (POST)
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
-                        // Outros endpoints precisam de autenticação
+                        // Permitir listagem pública de usuários (GET)
+                        .requestMatchers(HttpMethod.GET, "/users").permitAll()
+                        // Todos os outros endpoints precisam de autenticação
                         .anyRequest().authenticated()
                 )
-                // Filtro JWT customizado antes do filtro padrão de autenticação
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
-    // Configuração de CORS para permitir frontend local e produção
+    // Configuração de CORS para permitir frontend local e facilitar testes
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Permitir origens para desenvolvimento e produção
-        configuration.setAllowedOrigins(List.of(
-            "http://localhost:3000",   // Frontend Next.js local
-            "http://127.0.0.1:3000",  // Frontend alternativo local
-            "http://localhost:8081",  // Para testes diretos local
-            "http://127.0.0.1:8081",  // Para testes diretos alternativo local
-            "https://fire-guard-frontend-783901794609.us-central1.run.app"  // Frontend Cloud Run
-        ));
+        // Permitir todas as origens para desenvolvimento (incluindo Postman)
+        configuration.setAllowedOriginPatterns(List.of("*"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-        configuration.setAllowedHeaders(List.of("*")); // Permitir todos os headers
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true);
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

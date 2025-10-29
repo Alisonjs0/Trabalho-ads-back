@@ -2,6 +2,7 @@ package com.example.SGE.Controller;
 
 import com.example.SGE.Entity.InspectionEntity;
 import com.example.SGE.Repository.InspectionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/inspections")
 public class InspectionController {
+    
+    @Autowired
     private final InspectionRepository inspectionRepository;
 
     public InspectionController(InspectionRepository inspectionRepository) {
@@ -19,6 +22,8 @@ public class InspectionController {
 
     @PostMapping
     public InspectionEntity createInspection(@RequestBody InspectionEntity inspectionEntity) {
+        System.out.println("=== Entrando no método POST createInspection ===");
+        System.out.println("Dados recebidos: " + inspectionEntity);
         return inspectionRepository.save(inspectionEntity);
     }
 
@@ -48,6 +53,9 @@ public class InspectionController {
 
     @PutMapping("/{id}")
     public ResponseEntity<InspectionEntity> updateInspection(@PathVariable Long id, @RequestBody InspectionEntity updateInspection) {
+        System.out.println("=== Entrando no método PUT updateInspection ===");
+        System.out.println("ID: " + id + " | Dados recebidos: " + updateInspection);
+        
         Optional<InspectionEntity> existingInspectionOptional = inspectionRepository.findById(id);
 
         if (existingInspectionOptional.isPresent()) {
@@ -56,20 +64,23 @@ public class InspectionController {
             existingInspection.setInspectionDate(updateInspection.getInspectionDate());
             existingInspection.setInspectionAuthor(updateInspection.getInspectionAuthor());
             existingInspection.setExtinguisher(updateInspection.getExtinguisher());
-            existingInspection.setManometro(updateInspection.isManometro());
-            existingInspection.setSeal(updateInspection.isSeal());
-            existingInspection.setRotulo(updateInspection.isRotulo());
-            existingInspection.setDamages(updateInspection.isDamages());
-            existingInspection.setObstructions(updateInspection.isObstructions());
-            existingInspection.setSinalizacao(updateInspection.isSinalizacao());
-            existingInspection.setSuporteFixacao(updateInspection.isSuporteFixacao());
+            existingInspection.setManometro(updateInspection.getManometro());
+            existingInspection.setSeal(updateInspection.getSeal());
+            existingInspection.setRotulo(updateInspection.getRotulo());
+            existingInspection.setDamages(updateInspection.getDamages());
+            existingInspection.setObstructions(updateInspection.getObstructions());
+            existingInspection.setSinalizacao(updateInspection.getSinalizacao());
+            existingInspection.setSuporteFixacao(updateInspection.getSuporteFixacao());
+            existingInspection.setObservations(updateInspection.getObservations());
+            existingInspection.setNextInspectionDate(updateInspection.getNextInspectionDate());
 
-            inspectionRepository.save(existingInspection);
-
-            return ResponseEntity.ok(existingInspection); // 200 OK com o usuário atualizado
+            InspectionEntity savedInspection = inspectionRepository.save(existingInspection);
+            return ResponseEntity.ok(savedInspection);
         } else {
-            return ResponseEntity.notFound().build(); // 404 Not Found se o ID não existir
+            return ResponseEntity.notFound().build();
         }
     }
+
+
 
 }

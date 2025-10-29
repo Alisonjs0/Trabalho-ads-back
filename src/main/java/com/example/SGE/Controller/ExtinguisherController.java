@@ -51,27 +51,37 @@ public class ExtinguisherController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ExtinguisherEntity> updateUser(@PathVariable Long id, @RequestBody ExtinguisherEntity updateExtinguisher) {
+        System.out.println("=== ExtinguisherController.updateUser ===");
+        System.out.println("🔵 PUT Request recebido para ID: " + id);
+        System.out.println("🔵 Dados recebidos: " + updateExtinguisher);
+        
         Optional<ExtinguisherEntity> existingExtinguisherOptional = extinguisherRepository.findById(id);
 
         if (existingExtinguisherOptional.isPresent()) {
             ExtinguisherEntity existingExtinguisher = existingExtinguisherOptional.get();
 
-//            updateExtinguisher.setName(updateExtinguisher.getName());
-            updateExtinguisher.setValidate(updateExtinguisher.getValidate());
-            updateExtinguisher.setAgentType(updateExtinguisher.getAgentType());
-            updateExtinguisher.setFireClass(updateExtinguisher.getFireClass());
-            updateExtinguisher.setCapacity(updateExtinguisher.getCapacity());
-            updateExtinguisher.setManufacturingDate(updateExtinguisher.getManufacturingDate());
-
-//            updateExtinguisher.setMaturityDate(updateExtinguisher.getMaturityDate());
-//            updateExtinguisher.setUnitId(updateExtinguisher.getUnitId());
-
+            // Atualizar TODOS os campos com os dados recebidos
+            existingExtinguisher.setNumeroIdentificacao(updateExtinguisher.getNumeroIdentificacao());
+            existingExtinguisher.setLocalizacao(updateExtinguisher.getLocalizacao());
+            existingExtinguisher.setValidade(updateExtinguisher.getValidade());
+            existingExtinguisher.setTipoAgente(updateExtinguisher.getTipoAgente());
+            existingExtinguisher.setClasseIncendio(updateExtinguisher.getClasseIncendio());
+            existingExtinguisher.setCapacidade(updateExtinguisher.getCapacidade());
+            existingExtinguisher.setDataFabricacao(updateExtinguisher.getDataFabricacao());
+            existingExtinguisher.setFabricante(updateExtinguisher.getFabricante());
+            existingExtinguisher.setStatus(updateExtinguisher.getStatus());
+            existingExtinguisher.setObservacoes(updateExtinguisher.getObservacoes());
+            if (updateExtinguisher.getUnidadeId() != null) {
+                existingExtinguisher.setUnidadeId(updateExtinguisher.getUnidadeId());
+            }
 
             extinguisherRepository.save(existingExtinguisher);
-
-            return ResponseEntity.ok(existingExtinguisher); // 200 OK com o usuário atualizado
+            
+            System.out.println("✅ Extintor atualizado com sucesso!");
+            return ResponseEntity.ok(existingExtinguisher);
         } else {
-            return ResponseEntity.notFound().build(); // 404 Not Found se o ID não existir
+            System.out.println("❌ Extintor não encontrado com ID: " + id);
+            return ResponseEntity.notFound().build();
         }
     }
 }
