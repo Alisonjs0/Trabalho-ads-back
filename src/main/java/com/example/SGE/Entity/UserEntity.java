@@ -95,7 +95,13 @@ public class UserEntity implements UserDetails {
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(roles));
+        // Fix: Adiciona o prefixo ROLE_ se não existir
+        // Spring Security's hasAnyRole() automaticamente procura por "ROLE_" + roleName
+        String roleWithPrefix = roles;
+        if (roles != null && !roles.startsWith("ROLE_")) {
+            roleWithPrefix = "ROLE_" + roles;
+        }
+        return Collections.singletonList(new SimpleGrantedAuthority(roleWithPrefix));
     }
 
     @Override
